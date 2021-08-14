@@ -1,0 +1,9 @@
+#!/bin/sh
+
+pacman -Qi nnn >/dev/null 2>&1 || sudo pacman -S --noconfirm lf
+
+[ -d $HOME/.local/share/applications ] || mkdir -p $HOME/.local/share/applications
+ln -sf $(realpath applications/lf.desktop) $HOME/.local/share/applications
+
+[ -d $HOME/.config/lf ] || mkdir -p $HOME/.config/lf
+ln -sf $(realpath config/lfrc) $HOME/.config/lf/
