@@ -1,3 +1,22 @@
+# interpreter for shell commands
+set shell sh
+
+# set '-eu' options for shell commands
+# These options are used to have safer shell commands. Option '-e' is used to
+# exit on error and option '-u' is used to give error for unset variables.
+# Option '-f' disables pathname expansion which can be useful when $f, $fs, and
+# $fx variables contain names with '*' or '?' characters. However, this option
+# is used selectively within individual commands as it can be limiting at
+# times.
+set shellopts '-eu'
+
+# set internal field separator (IFS) to "\n" for shell commands
+# This is useful to automatically split file names in $fs and $fx properly
+# since default file separator used in these variables (i.e. 'filesep' option)
+# is newline. You need to consider the values of these options and create your
+# commands accordingly.
+set ifs "\n"
+
 # use enter for shell commands
 map <enter> shell
 
@@ -38,3 +57,23 @@ cmd zip ${{
 
 map xe extract
 map xz zip
+
+# container mount
+cmd cmount ${{
+    set -f
+    filename=$(basename $f)
+    sudo cryptsetup -v luksOpen $f $filename
+    sudo mkdir -p /mnt/$filename
+    sudo mount /dev/mapper/$filename /mnt/$filename
+    sudo chown $(whoami) /mnt/$filename
+}}
+
+# container umount
+cmd cumount ${{
+    filename=$(basename $f)
+    sudo umount /mnt/$filename
+    sudo cryptsetup -v luksClose $filename
+}}
+
+map xm cmount
+map xu cumount
