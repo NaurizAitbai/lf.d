@@ -139,3 +139,17 @@ cmd untag ${{
 
 map xt tag
 map xy untag
+
+cmd annex ${{
+    set -f
+    git annex add $fx
+    count=$(echo "$fx" | wc -l)
+
+    if [ $count -eq 1 ]; then
+        git commit -m "$(basename $fx)"
+    else
+        git commit -m "added several files"
+    fi
+}}
+
+map xa annex
