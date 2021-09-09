@@ -92,7 +92,11 @@ cmd tag ${{
 
     for tag in $ans
     do
-        tags="$tags --tag $tag"
+        if [[ $tag == *"="* ]]; then
+            tags="$tags --set $tag"
+        else
+            tags="$tags --tag $tag"
+        fi
     done
 
     IFS=$'\n'
@@ -116,7 +120,12 @@ cmd untag ${{
 
     for tag in $ans
     do
-        tags="$tags --untag $tag"
+        if [[ $tag == *"="* ]]; then
+            field=$(echo "$tag" | sed -e "s/\=$//")
+            tags="$tags --remove $field"
+        else
+            tags="$tags --untag $tag"
+        fi
     done
 
     IFS=$'\n'
