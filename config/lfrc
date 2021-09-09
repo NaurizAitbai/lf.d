@@ -77,3 +77,56 @@ cmd cumount ${{
 
 map xm cmount
 map xu cumount
+
+set previewer ~/.config/lf/scope
+
+cmd tag ${{
+    set -f
+    printf "$fx\n"
+    printf "tags: "
+    read ans
+
+    tags=''
+
+    IFS=$' '
+
+    for tag in $ans
+    do
+        tags="$tags --tag $tag"
+    done
+
+    IFS=$'\n'
+
+    for file in $fx
+    do
+        command="git annex metadata $file $tags"
+        bash -c $command
+    done
+}}
+
+cmd untag ${{
+    set -f
+    printf "$fx\n"
+    printf "tags: "
+    read ans
+
+    tags=''
+
+    IFS=$' '
+
+    for tag in $ans
+    do
+        tags="$tags --untag $tag"
+    done
+
+    IFS=$'\n'
+
+    for file in $fx
+    do
+        command="git annex metadata $file $tags"
+        bash -c $command
+    done
+}}
+
+map xt tag
+map xy untag

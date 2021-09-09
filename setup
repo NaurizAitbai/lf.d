@@ -7,3 +7,4 @@ ln -sf $(realpath applications/lf.desktop) $HOME/.local/share/applications
 
 [ -d $HOME/.config/lf ] || mkdir -p $HOME/.config/lf
 ln -sf $(realpath config/lfrc) $HOME/.config/lf/
+ln -sf $(realpath config/scope) $HOME/.config/lf/
