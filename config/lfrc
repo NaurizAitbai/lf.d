@@ -166,3 +166,20 @@ cmd set_lock_wallpaper ${{
 
 map sw set_wallpaper
 map sl set_lock_wallpaper
+
+cmd new_file ${{
+    set -f
+    printf "new file: "
+    read ans
+    touch $ans
+}}
+
+cmd new_dir ${{
+    set -f
+    printf "new dir: "
+    read ans
+    mkdir -p $ans
+}}
+
+map bf new_file
+map bd new_dir
