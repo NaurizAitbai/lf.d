@@ -153,3 +153,16 @@ cmd annex ${{
 }}
 
 map xa annex
+
+cmd set_wallpaper ${{
+    convert "$f" $HOME/.wallpaper && feh --bg-fill $HOME/.wallpaper
+}}
+
+cmd set_lock_wallpaper ${{
+    if file "$f" | grep -qE 'image|bitmap'; then
+        convert -scale 1920x1080 "$f" $HOME/.lock
+    fi
+}}
+
+map sw set_wallpaper
+map sl set_lock_wallpaper
