@@ -103,7 +103,7 @@ cmd tag ${{
 
     for file in $fx
     do
-        command="git annex metadata $file $tags"
+        command="git annex metadata \"$file\" $tags"
         bash -c $command
     done
 }}
@@ -132,7 +132,7 @@ cmd untag ${{
 
     for file in $fx
     do
-        command="git annex metadata $file $tags"
+        command="git annex metadata \"$file\" $tags"
         bash -c $command
     done
 }}
